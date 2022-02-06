@@ -49,3 +49,73 @@ body {
 
 
 
+/*header start */
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 80px;
+    background: #E3E6F3;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+}
+
+.logo > img {
+    width: 100px;
+    height: 100px;
+}
+
+#navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+#navbar li {
+    list-style: none;
+    padding: 0 20px;
+    position: relative;
+}
+
+#navbar li a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+
+}
+#navbar li a.active,
+#navbar li a:hover {
+    color: #088178;
+    transition: 0.2s ease-in-out;
+}
+
+#navbar li a:hover::after,
+#navbar li a.active::after {
+    content: '';
+    position: absolute;
+    width: 30%;
+    height: 2px;
+    background: #088178;
+    position: absolute;
+    bottom: -4px;
+    left: 20px;
+    transition: 0.2s ease-in-out;
+
+}
+/* header end */
+
+/* home page start */
+#hero{
+    background-image: url("./galery/online-shop.png");
+    background-repeat: no-repeat;
+    background-position:  top 25% right 10%;
+    height: 90vh;
+    width: 100%;
+    padding: 0 80px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* home page end */
