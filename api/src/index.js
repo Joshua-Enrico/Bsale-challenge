@@ -4,8 +4,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 /* Este es el modulo iniciamos express */
-const CategoryRoute = require('./src/routes/category');
-const ProductRoute = require('./src/routes/products');
+const CategoryRoute = require('./routes/category');
+const ProductRoute = require('./routes/products');
 
 
 /* inicializamos express y declaramos los enpoints que usaremos */
