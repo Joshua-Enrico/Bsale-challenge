@@ -3,13 +3,15 @@ const express = require('express');
 const dotenv = require('dotenv');
 dotenv.config();
 
-/* Este es el modulo iniciamos express */
+/* Importamos los endpoints que requerimos */
 const CategoryRoute = require('./routes/category');
 const ProductRoute = require('./routes/products');
 
 
 /* inicializamos express y declaramos los enpoints que usaremos */
 const api = express();
+var cors = require('cors')
+api.use(cors())
 api.use(express.json());
 api.use("/api/category", CategoryRoute);
 api.use("/api/products", ProductRoute);

@@ -31,6 +31,23 @@ router.get("/:productId", async (req, res) => {
     }
 })
 
+// obtener un numero de productos por input
+router.get("/qty/:number", async (req, res) => {
+    const number = parseInt(req.params.number);
+    if (number === NaN || number < 1) {
+        res.status(400).send("El numero es requerido o no es valido");
+    }
+    try{
+        const product = await Products.findAll({
+            limit: number
+        });
+        return res.status(200).json(product);
+    } catch(err) {
+        return res.status(500).send(err);
+    }
+})
+
+
 // buscar productos por ocurrencia de 
 router.get("/search/:search", async (req, res) => {
     try {

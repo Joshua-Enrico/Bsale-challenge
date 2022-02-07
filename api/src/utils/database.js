@@ -7,10 +7,14 @@ dotenv.config();
 
 
 /* Aqui inicializamos la conexión con la base de datos de MySQL usando sequelize(orm) */
-const sequelize = new Sequelize(process.env.database, process.env.username, process.env.password, {
-  host: process.env.host,
-  dialect: "mysql" /* selecting dialect */
-});
+const sequelize = new Sequelize(
+  process.env.database,
+  process.env.username,
+  process.env.password,
+  {
+    host: process.env.host,
+    dialect: "mysql" /* selecting dialect */
+  });
 
 sequelize
   .authenticate(process.env.username)
