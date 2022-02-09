@@ -1,7 +1,7 @@
 /*  En este modulo tenemos todas las funciones,
     para las llamadas de busqueda y paginacion */
 
-const url = `http://127.0.0.1:5500/front/pages/sproduct.html?id=`;// url de single product
+const url = PageUrl + `/sproduct.html?id=`;// url de single product
 
 /* En esta funcion obtenemos el argumento definido desde el path */
 function getParams(key = null) {
@@ -15,24 +15,28 @@ function getParams(key = null) {
 
 
 /* funcion para obtener productos por busqueda, el resultado se renderiza */
-const getProductsBySearch = (selectArg) => {
-    let arg = getParams('arg')
+const getProductsBySearch = (selectArg, order) => {
+    let arg = getParams('arg');
+    let orderP = ""
 
     if (selectArg){
         arg = selectArg
+    }
+    if (order){
+        orderP = order
     }
 
     let content = '';
     let pages = '';
 
     if (arg) {
-        axios.get('http://localhost:3000/api/products/search/' + arg)
+        axios.get(ApiUrl + '/api/products/search/' + arg + `?orderP=${orderP}`)
             .then(response => {
                 const element = document.getElementById('product-container');
                 const products = response.data.rows;
                 pages = Math.ceil(response.data.count / 8);
 
-                Pagination(pages, arg);// Esta funcion genera la paginacion(paginactio.js)
+                Pagination(pages, arg, orderP);// Esta funcion genera la paginacion(paginactio.js)
 
                 products.map(({ id, name, url_image, price, discount, category }) => {
 
@@ -59,10 +63,10 @@ const getProductsBySearch = (selectArg) => {
 getProductsBySearch();
 
 
-// funcion para llamar productos por paginacion
-const getProductsByPage = ( page, size, arg) => {
+// funcion para llamar productos por paginacion por orden definido
+const getProductsByPage = ( page, size, arg, sort) => {
 
-    axios.get(`http://localhost:3000/api/products/search/paginate/${arg}?page=${page}&size=${size}`)
+    axios.get(ApiUrl + `/api/products/search/paginate/${arg}?page=${page}&size=${size}&orderP=${sort}`)
         .then(response => {
             const element = document.getElementById('product-container');
             const products = response.data.rows;
@@ -88,9 +92,9 @@ const getProductsByPage = ( page, size, arg) => {
 }
 
 
-/* Hace una llamada cuando interactuamos con el el filto */
-$("#select").change(function () {
-    
-    const arg = $(this).val()
-    getProductsBySearch(arg);
-  });
+/* Hace una llamada cuando interactuamos con el filtro */
+$("#selectbox").change(function () {
+    const arg = $("#select").val();
+    const order = $("#orderBy").val();
+    getProductsBySearch(arg, order);
+});

@@ -1,11 +1,11 @@
 /* Este modulo contiene las llamadas para homepage */
 
-const url = `http://127.0.0.1:5500/front/pages/sproduct.html?id=`;// url para redireccionar a producto
+const url = PageUrl + `/sproduct.html?id=`;// url para redireccionar a producto
 
 /*  Funcion para solicitud get y obtener productos definios,
     Una vez obtenido los productos, lo renderizamos en la pagina  */
 const getProducts = () => {
-    axios.get('http://localhost:3000/api/products/qty/8')
+    axios.get(ApiUrl + '/api/products/qty/8')
         .then(response => {
             const products = response.data;
             products.map(({ id, name, url_image, price, discount, category }) => {
@@ -28,6 +28,3 @@ const getProducts = () => {
 }
 
 getProducts();
-
-
-

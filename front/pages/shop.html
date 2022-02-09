@@ -56,10 +56,10 @@
                 <option>vodka</option>
                 <option value="all">todo</option>
             </select>
-            <select>
+            <select id="orderBy">
                 <option>Precio</option>
-                <option>Mayor a menos</option>
-                <option>Menor a mayor</option>
+                <option value="DESC">Mayor a menor</option>
+                <option value="ASC">Menor a mayor</option>
             </select>
         </div>
         <!-- Fin -->
@@ -82,6 +82,7 @@
     <!-- Fin -->
 
 </body>
+<script src="../js/Urls.js"></script>
 <script type="text/javascript" src="../js/pagination/pagination.js"></script>
 <script type="text/javascript" src="../apicalls/shopCalls.js"></script>
 <script src="../apicalls/searchCall.js"></script>

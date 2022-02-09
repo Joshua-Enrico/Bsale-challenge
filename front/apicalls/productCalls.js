@@ -14,7 +14,7 @@ function getParams(key = null){
 const getProductByid = () => {
     const id = getParams('id')
     if (id) {
-        axios.get("http://localhost:3000/api/products/" + id)
+        axios.get( ApiUrl + "/api/products/" + id)
         .then(response => {
             const product = response.data;
             const {id, name, url_image, price, discount, category} = product;
