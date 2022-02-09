@@ -5,17 +5,18 @@ Objetivo del proyecto: Crear una tienda online completa(front y backend) con la 
 
 Las Caractericas de la aplicacion: 
 * Frontend simple que despliega productos por busqueda dinamicamente
-* Backedn(Api rest) que proporciona endpoinds necesarios por la aplicacion
+* Backend(Api rest) que proporciona endpoinds necesarios para la aplicacion
 
 ## Tecnologias y Librerias usadas
 Frontend :
-* Vanilla js
+* Vanilla.js
 * Html
 * Css
 * Jquery
 * Axios
 
 Backend:
+  Desplegado en aws(ec2)
 * Node.js
 * Express
 * Sequelize
@@ -27,7 +28,7 @@ Backend:
 
 En este caso Se esta manejando dos entornos diferentes para el front y backend:
 
-Fronend: En El front es simple y directo , No se esta manejando ningun framework para el fron asi que no hay requisitos para ejecutar
+Frontend: En El front es simple y directo , No se esta manejando ningun framework para el frontend asi que no hay requisitos para ejecutar
 Unicamente debes apuntar correctamente al index.html en el entorno que estes ejecutando
 
 ```
@@ -43,7 +44,7 @@ EOF  help  quit
 (hbnb) quit
 $
 ```
-Backend: En el caso del backedn es diferente, estamos usando el entorno de node.js, su manejador de 
+Backend: En el caso del backedn es diferente, estamos usando el entorno de node.js(v16.13.2), su manejador de 
 paquetes es estupendo asi que la instalacion de las dependencias no deberia ser un problema.
 
 Aqui tienes dos opciones:
