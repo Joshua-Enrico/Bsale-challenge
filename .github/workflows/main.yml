@@ -4,7 +4,7 @@ on:
     branches: [ main ]
 
 jobs:
-      - name: Configure AWS Credentials
+      name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         if: |
           github.event_name == 'push'
@@ -15,7 +15,7 @@ jobs:
           # aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }} # if you have/need it
           aws-region: ${{ secrets.AWS_CODEDEPLOY_REGION }}
 # AWS CLI Docs: https://docs.aws.amazon.com/codedeploy/latest/userguide/deployments-create-cli.html
-      - name: Deploy to CodeDeploy
+      name: Deploy to CodeDeploy
         # success() checks if the previous job was canceled or not
         run: |
           aws deploy create-deployment \
