@@ -23,6 +23,8 @@ Backend:
 * Cors
 * Mysql2
 * Dotenv
+* Mocha
+* Supertest.js
 
 ## Ejecucion
 
@@ -94,6 +96,39 @@ Connection has been established successfully.
 
 ```
 
+## Ejecutar Tests
+
+Se tiene el apartado de tests, se esta usando mocha y supertest para testear nuestros endpoints:
+
+* Para ejecutar los tests primero asegurarce de tener instalado mocha y supertest, basta con tener ejecutado `npm install` 
+ya que las libreries estan en las dependencias, una vez verificado debes estar en el directorio `api` y ejecutar `npm run testApi`
+puedes verificad el commando en `package.json`, ejemplo:
+```
+(base) root@DESKTOP-VQ684KQ:/home/bsale-challenge/api# npm run testApi
+
+> api@1.0.0 testApi
+> mocha tests/ --exit
+
+Server is running on port 3000
+
+
+Connection has been established successfully.
+  ✔ testing get method /api/category/ endpoint (63ms)
+  ✔ testing get method /api/products/ endpoint
+  ✔ testing get method /api/products/:productId endpoint
+  ✔ testing get method /api/products/qty/:number endpoint
+  ✔ testing get method /api/products/qty/ endpoint manejo de errores
+  ✔ testing get method /api/products/search/paginate/:search endpoint
+  ✔ testing get method /api/products/search/paginate/:search endpoint
+returned
+  ✔ testing get method /api/products/search/paginate/:search endpoint manejo de errores
+returned
+  ✔ testing get method /api/products/search/paginate/:search endpoint manejo de errores
+
+  9 passing (197ms)
+
+```
+
 
 ## Estructura de archivos
 
@@ -109,7 +144,8 @@ Connection has been established successfully.
 ---|---|---
 0|[fakeData](./api/fakeData)| Contiene Data de Backup en caso de necesitarla en desarrollo
 1|[node_modules](./api/node_modules)| Contiene todos las dependencias , en caso de necesitarla
-2|[src](./api/src)| Directorio que contiene la logica de nuestra api 
+2|[src](./api/src)| Directorio que contiene la logica de nuestra api
+3|[tests](./api/tests)| Directorio que contiene endpoints tests
 
 ### Structura directorio SRC
 
