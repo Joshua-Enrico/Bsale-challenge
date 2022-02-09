@@ -1,3 +1,6 @@
+/* Este modulo contiene las llamadas para obtener un producto */
+
+/* En esta funcion obtenemos el argumento definido desde el path */
 function getParams(key = null){
     let currentUrl = window.location.search;
     let url = new URLSearchParams(currentUrl);
@@ -7,6 +10,7 @@ function getParams(key = null){
 
 }
 
+/* En esta funcion obtenemos un producto por id y lo renderizamos */
 const getProductByid = () => {
     const id = getParams('id')
     if (id) {

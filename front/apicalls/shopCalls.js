@@ -1,6 +1,9 @@
-const url = `http://127.0.0.1:5500/front/pages/sproduct.html?id=`;
+/*  En este modulo tenemos todas las funciones,
+    para las llamadas de busqueda y paginacion */
 
+const url = `http://127.0.0.1:5500/front/pages/sproduct.html?id=`;// url de single product
 
+/* En esta funcion obtenemos el argumento definido desde el path */
 function getParams(key = null) {
     let currentUrl = window.location.search;
     let url = new URLSearchParams(currentUrl);
@@ -11,7 +14,8 @@ function getParams(key = null) {
 }
 
 
-const getProductByid = (selectArg) => {
+/* funcion para obtener productos por busqueda, el resultado se renderiza */
+const getProductsBySearch = (selectArg) => {
     let arg = getParams('arg')
 
     if (selectArg){
@@ -27,7 +31,9 @@ const getProductByid = (selectArg) => {
                 const element = document.getElementById('product-container');
                 const products = response.data.rows;
                 pages = Math.ceil(response.data.count / 8);
-                Pagination(pages, arg);
+
+                Pagination(pages, arg);// Esta funcion genera la paginacion(paginactio.js)
+
                 products.map(({ id, name, url_image, price, discount, category }) => {
 
                     content +=`
@@ -50,7 +56,7 @@ const getProductByid = (selectArg) => {
             })
     }
 }
-getProductByid();
+getProductsBySearch();
 
 
 // funcion para llamar productos por paginacion
@@ -82,7 +88,7 @@ const getProductsByPage = ( page, size, arg) => {
 }
 
 
-
+/* Hace una llamada cuando interactuamos con el el filto */
 $("#select").change(function () {
     
     const arg = $(this).val()
