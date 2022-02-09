@@ -92,5 +92,5 @@ const getProductsByPage = ( page, size, arg) => {
 $("#select").change(function () {
     
     const arg = $(this).val()
-    getProductByid(arg);
+    getProductsBySearch(arg);
   });
