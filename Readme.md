@@ -98,20 +98,36 @@ Connection has been established successfully.
 
 ##|Directorio o Archivo | Descripcion
 ---|---|---
-0|[console.py](./console.py)|command interpreter to manage your AirBnB objects: Create a new object (ex: a new User or a new Place) ; Retrieve an; object from a file, a database etc… ; Do operations on objects (count, compute stats, etc…); Update attributes of an object; Destroy an object
-1|[models](./models)|directory of all the classes
-2|[tests](./tests)|directory of console test and class tests
+0|[api](./api)| Directorio que contiene la logica de backend(api Rest)
+1|[front](./front)| Directorio que contiene la logica de frontend
 
-### 2.0.Test_models structure
 
-##|File|Description
+### Structura directorio API
+
+##|Directorio o Archivo | Descripcion
 ---|---|---
-2.0.0|[test_engine](./tests/test_models/test_engine)|Directory where the project tests all the tests for the storage of the program
-2.0.1|[__init__.py](./tests/test_models/__init__.py)|initialization code for the package: files are required to make Python treat the directories as containing packages; this is done to prevent directories with a common name
-2.0.2|[test_amenity.py](./tests/test_models/test_amenity.py)|Testing Amenity class- Comproving expectect outputs and documentation
-2.0.3|[test_base_model.py](./tests/test_models/test_base_model.py)|Testing BaseModel- Comproving expectect outputs and documentation
-2.0.4|[test_city.py](./tests/test_models/test_city.py)|Test City Class - Comproving expectect outputs and documentation
-2.0.5|[test_place.py](./tests/test_models/test_place.py)|Test place - Comproving expectect outputs and documentation
-2.0.6|[test_review.py](./tests/test_models/test_review.py)|Test Review - Comproving expectect outputs and documentation
-2.0.7|[test_state.py](./tests/test_models/test_state.py)|Test state - Comproving expectect outputs and documentation
-2.0.8|[test_user.py](./tests/test_models/test_user.py)|Test User - Comproving expectect outputs and documentation
+0|[fakeData](./api/fakeData)| Contiene Data de Backup en caso de necesitarla en desarrollo
+1|[node_modules](./api/node_modules)| Contiene todos las dependencias , en caso de necesitarla
+2|[src](./api/src)| Directorio que contiene la logica de nuestra api 
+
+### Structura directorio SRC
+
+##|Directorio o Archivo | Descripcion
+---|---|---
+0|[models](./api/src/models)| Este directorio Contiene los modelos de nuestra db
+1|[routes](./api/src/routes)| Este directorio Contiene todos los endpoints de nuestra aplicacion
+2|[utils](./api/src/utils)| Este directorio Contiene funciones de utilidad 
+
+
+### Structura directorio Front
+
+##|Directorio o Archivo | Descripcion
+---|---|---
+0|[apicalls](./front/fakeData)| Este Directorio Contiene toda la logica de los apicalls a nuestra api
+1|[galery](./front/node_modules)| Este Directorio contiene imagenes que usa nuestra app
+2|[js](./api/src)| En este Directorio tenemos funciones de utilidad 
+3|[pages](./api/src)| En este Directorio tenemos todas nuestas paginas html 
+4|[styles](./api/src)| Este Directorio contiene todo nuestros archivos css
+
+
+
