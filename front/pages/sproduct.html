@@ -1,41 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecommerce</title>
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/sproduct.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
+
 <body>
+
+    <!-- Section de Producto -->
     <section id="header">
-        <a href="#" class="logo" alt="" >
+        <a href="#" class="logo" alt="">
             <img src="../galery/bolsa-de-la-compra.png" alt="">
         </a>
         <div class="wrap">
             <div class="search">
-               <input type="text" class="searchTerm" placeholder="What are you looking for?">
-               <button type="submit" class="searchButton">
-                 <i class="fa fa-search"></i>
-              </button>
+                <input type="text" class="searchTerm" placeholder="What are you looking for?">
+                <button type="submit" class="searchButton">
+                    <i class="fa fa-search"></i>
+                </button>
             </div>
-         </div>
+        </div>
         <div>
             <ul id="navbar">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html" >Tienda</a></li>
-                <li><a href="cart.html" ><i class="fas fa-shopping-bag"></i></a></li>
+                <li><a href="shop.html">Tienda</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-bag"></i></a></li>
             </ul>
         </div>
     </section>
+    <!-- Fin -->
+
+    <!-- Section de Producto -->
     <section id="prodetails" class="section-p1">
         <!-- El producto se Renderiza dinamicamente
             desde ../apicalls/productCalls.js  -->
     </section>
+    <!-- Fin -->
+
 </body>
 <script src="../apicalls/productCalls.js"></script>
+
 </html>

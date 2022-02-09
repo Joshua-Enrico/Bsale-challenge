@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
+    <!-- Seccion de header -->
     <section id="header">
         <a href="#" class="logo" alt="" >
             <img src="../galery/bolsa-de-la-compra.png" alt="">
@@ -26,11 +27,14 @@
         <div>
             <ul id="navbar">
                 <li><a href="index.html" onclick="route()" class="active" >Home</a></li>
-                <li><a href="shop.html" onclick="route()">Tienda</a></li>
+                <li><a href="shop.html?arg=all" onclick="route()">Tienda</a></li>
                 <li><a href="cart.html" onclick="route()"><i class="fas fa-shopping-bag"></i></a></li>
             </ul>
         </div>
     </section>
+    <!-- End -->
+
+    <!-- Seccion de banner -->
     <section id="hero">
         <h4>Comercio en oferta</h4>
         <h2>Ofertas de gran valor</h2>
@@ -38,6 +42,9 @@
         <p>Ahorre dinero con cupones de hasta %70 de descuento</p>
         <button>Comprar Ahora</button>
     </section>
+    <!-- Fin -->
+
+    <!-- Seccion de productos -->
     <section id="product1" class="section-p1" >
         <h2>Productos Destacados</h2>
         <p>Productos en Demanda</p>
@@ -47,9 +54,9 @@
 
         </div>
     </section>
+    <!-- fin -->
 </body>
 <script src="../apicalls/fakeData.js"></script>
-<script src="script.js"></script>
 <script src="../apicalls/homeCalls.js" ></script>
 <script src="../apicalls/searchCall.js"></script>
 
