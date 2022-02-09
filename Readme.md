@@ -98,9 +98,9 @@ Connection has been established successfully.
 
 ## Ejecutar Tests
 
-Se tiene el apartado de tests, se esta usando mocha y supertes para testear nuestros endpoints:
+Se tiene el apartado de tests, se esta usando mocha y supertest para testear nuestros endpoints:
 
-* Para ejecutar los tests primero asegurarce de tener instalado mocha y supertes, basta con tener ejecutado `npm install` 
+* Para ejecutar los tests primero asegurarce de tener instalado mocha y supertest, basta con tener ejecutado `npm install` 
 ya que las libreries estan en las dependencias, una vez verificado debes estar en el directorio `api` y ejecutar `npm run testApi`
 puedes verificad el commando en `package.json`, ejemplo:
 ```
