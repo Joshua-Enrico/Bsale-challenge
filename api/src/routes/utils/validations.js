@@ -2,7 +2,7 @@
 
 /* Esta funcion valida que los parametros enviados sean numeros no negativos 
    y no falte algun argumento */
-function VldParams(intSize, intPage) {
+function VldParams(intSize, intPage, order) {
     if (intSize === "" || intPage === "") {
         return { isValid: false, message: "Pagina y tamaño son requeridos" };
 
@@ -13,6 +13,7 @@ function VldParams(intSize, intPage) {
         return { isValid: false, message: "La pagina debe ser un numero valido" };
 
     }
+
     return { isValid: true };
 
 }

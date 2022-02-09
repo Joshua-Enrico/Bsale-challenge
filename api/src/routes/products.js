@@ -8,6 +8,9 @@ const Op = db.Sequelize.Op;// manejador de operaciones
 const { FakeData } = require('../../fakeData/fakeData');// Data fake en caso de necesitarla en entorno dev
 const { VldParams } = require('./utils/validations');// funcion para validar argumentos
 
+// obtenemos nuestros querys conditionales desde este modulo
+const { QueryParamsPg, QueryParams2, QueryAll, QueryAllPaginate } = require('./utils/productQuerysPrms');
+
 /* instanciamos el modelo Products  */
 var models = initModels(db.sequelize);
 const Products = models.product;
@@ -76,16 +79,15 @@ router.get("/qty/:number", async (req, res) => {
 router.get("/search/paginate/:search", async (req, res) => {
     try {
         const search = req.params.search;
-        const { size, page } = req.query;
+        const { size, page, orderP } = req.query;
         // convertimos el size y page a int
         const intSize = parseInt(size);
         const intPage = parseInt(page);
 
 
-        // validamos que el usuario envie un argumento validos
-        const vldParams = VldParams(intSize, intPage);
+        // validamos que el usuario envie argumentos validos
+        const vldParams = VldParams(intSize, intPage, orderP);
         if (!vldParams.isValid) {
-            console.log("returned");
             return res.status(400).send(vldParams.message);
         }
 
@@ -93,11 +95,8 @@ router.get("/search/paginate/:search", async (req, res) => {
             retornaremos todos los productos con conteo,
             el objetivo es mantener el endpoint versatil */
         if (search === "all") {
-            const products = await Products.findAndCountAll(
-                {
-                    limit: intSize,
-                    offset: intPage * intSize,
-                });
+            const queryAll = QueryAllPaginate(orderP, intSize, intPage);// obtenemos un query conditional
+            const products = await Products.findAndCountAll(queryAll);
             return res.status(200).json(products);
         }
 
@@ -113,19 +112,12 @@ router.get("/search/paginate/:search", async (req, res) => {
 
         const id = category[0].id;// obtenemos el id de la categoria
 
+        const query = QueryParamsPg(orderP, search, intPage, intSize, id, Op);// obtenemos un query conditional
+
         /* Query principal, usando el id resultante y el parametro search
            Haremos el query a la tabla productos.
         */
-        const products = await Products.findAndCountAll({
-            where: {
-                [Op.or]: [
-                    { name: { [Op.like]: `%${search}%` } },
-                    { category: id }
-                ]
-            },
-            limit: intSize,// limite de productos por pagina
-            offset: intPage * intSize, // numero de pagina
-        });
+        const products = await Products.findAndCountAll(query);
 
         return res.status(200).json(products); // retornamos los productos por pagina
     } catch (err) {
@@ -137,18 +129,20 @@ router.get("/search/paginate/:search", async (req, res) => {
 /* Este enpoint busca productos basado en su categoria pero,
    tambien por nombre de producto */
 router.get("/search/:search", async (req, res) => {
+    console.log("search");
     try {
         const search = req.params.search;// variable para la busqueda
+        const { orderP } = req.query;// variable para el ordenamiento
+        console.log(orderP);
+
 
         /* Condition especial, en caso de mandar un arugmento con la cadena "all",
-        retornaremos todos los productos con conteo, el objetivo es mantener este 
-        endpoint como principal para las busquedas */
+                retornaremos todos los productos con conteo, el objetivo es mantener este 
+                endpoint como principal para las busquedas */
         if (search === "all") {
-            const products = await Products.findAndCountAll(
-                {
-                    limit: 8,
-                });
-            return res.status(200).json(products);
+            const queryAll = QueryAll(orderP);// obtenemos un query conditional
+            const allproducts = await Products.findAndCountAll(queryAll);
+            return res.status(200).json(allproducts);
         }
 
         /* Hacemos un query a la tabla categoria, 
@@ -163,19 +157,12 @@ router.get("/search/:search", async (req, res) => {
 
         const id = category[0].id; // obtenemos el id de la categoria
 
+        const query = QueryParams2(orderP, search, id, Op); // obtenemos un query conditional
+
         /* Query principal, usando el id resultante y el parametro search
            Haremos el query a la tabla productos.
         */
-        const products = await Products.findAndCountAll(
-            {
-                where: {
-                    [Op.or]: [
-                        { name: { [Op.substring]: `%${search}%` } },
-                        { category: id }
-                    ]
-                },
-                limit: 8, // el numero de productos por pagina sera de 8 por defecto
-            });
+        const products = await Products.findAndCountAll(query);
         return res.status(200).json(products); // retornamos los productos
 
 
