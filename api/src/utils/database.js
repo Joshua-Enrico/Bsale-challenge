@@ -10,11 +10,11 @@ dotenv.config();
 const sequelize = new Sequelize(
   process.env.database,
   process.env.username,
-  process.env.password,
+  process.env.password, 
   {
-    host: process.env.host,
-    dialect: "mysql" /* selecting dialect */
-  });
+  host: process.env.host,
+  dialect: "mysql" /* selecting dialect */
+});
 
 sequelize
   .authenticate(process.env.username)
@@ -25,6 +25,7 @@ sequelize
     console.error('Unable to connect to the database:', err); // eslint-disable-line no-console
   });
 
+// sequelize.sync()  // crea e inicializa la tabla de productos en caso de necesitarlo (solo en desarrollo)
 
 /* usaremos este objeto para exportarlo y poder usarlo,
    en otros archivos de manera ordenada*/
