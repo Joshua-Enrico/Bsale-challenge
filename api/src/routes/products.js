@@ -57,7 +57,7 @@ router.get("/:productId", async (req, res) => {
 /* obtener un numero de productos por input */
 router.get("/qty/:number", async (req, res) => {
     const number = parseInt(req.params.number);
-    if (number === NaN || number < 1) {
+    if (isNaN(number) || number < 1) {
         res.status(400).send("El numero es requerido o no es valido");
     }
     try {

@@ -13,7 +13,8 @@ const sequelize = new Sequelize(
   process.env.password, 
   {
   host: process.env.host,
-  dialect: "mysql" /* selecting dialect */
+  dialect: "mysql", /* selecting dialect */
+  logging: false
 });
 
 sequelize
