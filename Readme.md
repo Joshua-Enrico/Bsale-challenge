@@ -23,6 +23,8 @@ Backend:
 * Cors
 * Mysql2
 * Dotenv
+* Mocha
+* Supertest.js
 
 ## Ejecucion
 
@@ -109,7 +111,8 @@ Connection has been established successfully.
 ---|---|---
 0|[fakeData](./api/fakeData)| Contiene Data de Backup en caso de necesitarla en desarrollo
 1|[node_modules](./api/node_modules)| Contiene todos las dependencias , en caso de necesitarla
-2|[src](./api/src)| Directorio que contiene la logica de nuestra api 
+2|[src](./api/src)| Directorio que contiene la logica de nuestra api
+3|[tests](./api/tests)| Directorio que contiene endpoints tests
 
 ### Structura directorio SRC
 
