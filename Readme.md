@@ -3,9 +3,12 @@
 
 Objetivo del proyecto: Crear una tienda online completa(front y backend) con la finalidad de mostrar productos basado en busqueda y filtros.
 
+
 Las Caractericas de la aplicacion: 
 * Frontend simple que despliega productos por busqueda dinamicamente
 * Backend(Api rest) que proporciona endpoinds necesarios para la aplicacion
+
+[Link del Demo](http://front-ecommerce-test.s3-website-us-east-1.amazonaws.com/)
 
 ## Table of Contents
 * [Tecnologias-Librerias-usadas](#Tecnologias-Librerias-usadas)
@@ -134,7 +137,7 @@ ejecuta `npm install` y por ultimo `npm run dev`
 Server is running on port 3000
 Executing (default): SELECT 1+1 AS result
 ```
-* Para produccion : Para produccion instalas las dependencias `npm install` seguido de `npm run start`
+* Para produccion : Para produccion instalar las dependencias `npm install` seguido de `npm run start`
 ```
 (base) root@DESKTOP-VQ684KQ:/home/bsale-challenge/api# pwd
 /home/bsale-challenge/api
@@ -157,7 +160,7 @@ Connection has been established successfully.
 ## Tests
 ### Ejecutar Tests
 
-Se adicion tests con casos de prueba simples para los endpoints:
+Se adiciono tests con casos de prueba simples para los endpoints:
 
 * Para ejecutar los tests primero asegurarce de tener instalado mocha y supertest, basta con tener ejecutado `npm install` 
 ya que las librerias estan en las dependencias, una vez verificado debes estar en el directorio `api` y ejecutar `npm run testApi`
@@ -192,7 +195,7 @@ returned
 ### Crear DB y Data
 Esta solucion la emplee por el motivo ya explicado, estoy usando scripts sh y mocha con supertest para la creacion de la db y la data.
 !imporante, el script no instala mysql, el motivo por el que dedici no incluir ese paso es para evitar
-algun error de compatibilidad con la version de mysql que ustedes tengan
+algun error de compatibilidad con la version de mysql que ustedes tengan,
 el script crea un db con usuario y ejecuta unos endpoints especiales para crear la data,
 ejecutar el comando `npm run CreateDB`, ejemplo:
 
@@ -224,7 +227,10 @@ Connection has been established successfully.
 ---|---|---
 0|[api](./api)| Directorio que contiene la logica de backend(api Rest)
 1|[front](./front)| Directorio que contiene la logica de frontend
-1|[scripts](./scripts)| Este directorio contiene los scripts necesarios para implementar CI/CD
+2|[scripts](./scripts)| Este directorio contiene los scripts necesarios para implementar CI/CD
+3|[appspec.yml](./appspec.yml)| script para el CI/CD de la api
+4|[.github](./.github)| Script para CI/CD del front.
+
 
 
 ### Structura directorio API
