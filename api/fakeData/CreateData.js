@@ -36,7 +36,7 @@ var models = initModels(sequelize);// Modelos
 const {Category, Products} = models.category;
 
 // Crear Data
-function CreateData(){
+async function CreateData(){
     try {
         console.log("Creando data...");
         const category = await Category.bulkCreate(
@@ -52,5 +52,12 @@ function CreateData(){
     }
 
 }
-CreateData();
+CreateData().then(() => {
+    console.log("Data creada");
+    sequelize.close();
+}).catch(err => {
+    console.log(err);
+    sequelize.close();
+})
+
 console.log("Data Creada");
