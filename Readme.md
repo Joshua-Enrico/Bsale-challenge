@@ -8,21 +8,16 @@ Las Caractericas de la aplicacion:
 * Backend(Api rest) que proporciona endpoinds necesarios para la aplicacion
 
 ## Table of Contents
+* [Tecnologias-Librerias-usadas](#Tecnologias-Librerias-usadas)
+* [Inconveniente a Mencionar](#Inconveniente)
 * [Ejecucion](#Ejecucion)
-* [File Structure](#file-structure)
-* [File Structure](#Directories)
-* [Requirements](#requirements)
-* [Installation](#installation)
-* [Usage](#usage)
-* [Example of Use](#example-of-use)
-* [Bugs](#bugs)
-* [Authors](#authors)
-* [License](#license)
+* [Ejecutar Tests](#Ejecutar)
+* [Crear DB y Data](#Crear)
 
 
 
 
-## Tecnologias y Librerias usadas
+## Tecnologias-Librerias-usadas
 Frontend :
 * Vanilla.js
 * Html
