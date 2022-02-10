@@ -4,10 +4,6 @@ files:
   - source: /
     destination: /home/api/express-app
 hooks:
-  ApplicationStop:
-    - location: scripts/app_stop.sh
-      timeout: 300
-      runas: ec2-user
   BeforeInstall:
     - location: scripts/befoe_install.sh
       timeout: 300
