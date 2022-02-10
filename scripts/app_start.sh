@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#Iniciamos nuestra aplicacion
 sudo chmod -R 777 /home/api/
 cd /home/api/api/
 

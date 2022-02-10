@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#create our working directory if it doesnt exist
+#crea el directorio especificado si no existe
 DIR="/home/api/"
 if [ -d "$DIR" ]; then
   sudo echo "${DIR} exists"
