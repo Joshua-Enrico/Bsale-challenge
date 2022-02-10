@@ -5,7 +5,7 @@ const url = PageUrl + `/sproduct.html?id=`;// url para redireccionar a producto
 /*  Funcion para solicitud get y obtener productos definios,
     Una vez obtenido los productos, lo renderizamos en la pagina  */
 const getProducts = () => {
-    axios.get(ApiUrl + '/api/products/qty/8')
+    axios.get(ApiUrl + '/api/products/qty/8/')
         .then(response => {
             const products = response.data;
             products.map(({ id, name, url_image, price, discount, category }) => {
