@@ -95,7 +95,13 @@ const getProductsByPage = ( page, size, arg, sort) => {
 
 /* Hace una llamada cuando interactuamos con el filtro */
 $("#selectbox").change(function () {
-    const arg = $("#select").val();
+    let urlarg = getParams('arg');
+    console.log(urlarg)
+    let arg = $("#select").val();
+    if (urlarg && arg === "all") {
+        arg = urlarg
+    }
+
     const order = $("#orderBy").val();
     getProductsBySearch(arg, order);
 });
