@@ -13,6 +13,7 @@ Las Caractericas de la aplicacion:
 * [Ejecucion](#Ejecucion)
 * [Tests](#Tests)
 * [Crear DB y Data](#DB-DATA)
+* [Estructura de Archivos](#Estructura)
 
 
 
@@ -215,7 +216,8 @@ Connection has been established successfully.
 ```
 
 
-## Estructura de archivos
+## Estructura
+### Esctuctura de Achivos
 
 ##|Directorio o Archivo | Descripcion
 ---|---|---
