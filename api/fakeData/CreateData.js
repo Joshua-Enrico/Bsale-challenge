@@ -33,7 +33,9 @@ sequelize
 sequelize.sync()  // crea e inicializa la tabla de productos en caso de necesitarlo (solo en desarrollo)
 
 var models = initModels(sequelize);// Modelos
-const {Category, Products} = models.category;
+const Category = models.category;
+const Products = models.product;
+
 
 // Crear Data
 async function CreateData(){
@@ -54,10 +56,10 @@ async function CreateData(){
 }
 CreateData().then(() => {
     console.log("Data creada");
-    sequelize.close();
+
 }).catch(err => {
     console.log(err);
-    sequelize.close();
+
 })
 
 console.log("Data Creada");
