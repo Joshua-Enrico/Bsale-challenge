@@ -9,10 +9,10 @@ Las Caractericas de la aplicacion:
 
 ## Table of Contents
 * [Tecnologias-Librerias-usadas](#Tecnologias-Librerias-usadas)
-* [Inconveniente a Mencionar](#Inconveniente)
+* [Inconveniente a Mencionar](#Inconvenientes)
 * [Ejecucion](#Ejecucion)
-* [Ejecutar Tests](#Ejecutar)
-* [Crear DB y Data](#Crear)
+* [Tests](#Tests)
+* [Crear DB y Data](#DB-DATA)
 
 
 
@@ -52,7 +52,8 @@ Servicios aws usados
 CI/CD Frontend:
 * Vercel
 
-## Inconveniente a Mencionar
+## Inconvenientes
+### Inconveniente a Mencionar
 Dado  que se nos proporciono un servidor db del cual nuestra api depende, el inconveniente que
 esta sucediendo es que el servidor tiene un maximo de conexiones por hora, lo que puede estar sucediendo es que otros postulantes al estar en desarrollo,
 estan ejecutando su aplicacion varias veces en un lapso de pocos minutos , eso hace que lleguemos al limite de conexiones en cuestion de minutos,
@@ -151,7 +152,8 @@ Connection has been established successfully.
 
 ```
 
-## Ejecutar Tests
+## Tests
+### Ejecutar Tests
 
 Se adicion tests con casos de prueba simples para los endpoints:
 
@@ -184,7 +186,8 @@ returned
 
 ```
 
-## Crear DB y Data
+## DB-DATA
+### Crear DB y Data
 Esta solucion la emplee por el motivo ya explicado, estoy usando scripts sh y mocha con supertest para la creacion de la db y la data.
 !imporante, el script no instala mysql, el motivo por el que dedici no incluir ese paso es para evitar
 algun error de compatibilidad con la version de mysql que ustedes tengan
