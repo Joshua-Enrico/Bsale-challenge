@@ -18,6 +18,20 @@ const Category = models.category;
 
 
 // Obtener todos los productos
+/**
+ * @swagger
+ * tags:
+      - "products"
+ * /api/products/:
+ *  get:
+ *   description: Retonra todos los productos
+ *   responses:
+ *      '200':
+ *         description: Retorna todas los productos
+ *      '500': 
+ *          description: Error en el servidor
+ * 
+ */
 router.get("/", async (req, res) => {
     try {
         const products = await Products.findAll();
@@ -29,6 +43,18 @@ router.get("/", async (req, res) => {
 
 
 // crear contenido fake (solo usar en desarrollo)
+/**
+ * @swagger
+ * /api/products/fake:
+ *  get:
+ *   description: Crea contenido fake en la base de datos, solo se usa en entorno de desarrollo
+ *   responses:
+ *      '200':
+ *         description: Retorna todas los productos creados
+ *      '500': 
+ *          description: Error en el servidor
+ * 
+ */
 router.post("/fake", async (req, res) => {
 
     try {
@@ -43,6 +69,25 @@ router.post("/fake", async (req, res) => {
 
 
 /* Enpoint para obtener un producto por id */
+/**
+ * @swagger
+ * /api/products/{productId}:
+ *  parameters:
+ *     - name: productId
+ *  in: path
+ *  description: id del producto
+ *  required: true
+ *  get:
+ *   description: Obtiene un producto por id
+ *   responses:
+ *      '200':
+ *         description: Retorna un producto por id
+ *      '500': 
+ *          description: Error en el servidor
+ *      '404':
+ *          description: El id es requerido
+ * 
+ */
 router.get("/:productId", async (req, res) => {
     const id = req.params.productId;
     if (!id) {
@@ -58,6 +103,25 @@ router.get("/:productId", async (req, res) => {
 
 
 /* obtener un numero de productos por input */
+/**
+ * @swagger
+ * /api/products/qty/{qty}:
+ *  parameters:
+ *     - name: qty
+ *  in: path
+ *  description: Retorna un numero de productos
+ *  required: true
+ *  get:
+ *   description: Retorna un numero de productos
+ *   responses:
+ *      '200':
+ *         description: Retorna un productos por qty
+ *      '500': 
+ *          description: Error en el servidor
+ *      '400':
+ *          description: El numero es requerido o no es valido
+ * 
+ */
 router.get("/qty/:number", async (req, res) => {
     const number = parseInt(req.params.number);
     if (isNaN(number) || number < 1) {
@@ -76,6 +140,28 @@ router.get("/qty/:number", async (req, res) => {
 
 /* Este Endpoint busca productos por paginacion,
    cateogia y nombre de producto   */
+/**
+ * @swagger
+ * /api/products/search/paginate/{search}?page={page}&limit={limit}&orderP={orderP}:
+ *  parameters:
+ *     - name: search
+ *     - name: limit
+ *     - name: page
+ *     - name: orderP
+ *  in: path
+ *  description: Retorna un numero de productos por pagina y orden asc o desc
+ *  required: true
+ *  get:
+ *   description: Retorna un numero de productos por pagina y orden asc o desc
+ *   responses:
+ *      '200':
+ *         description: Retorna un productos por pagina y orden asc o desc
+ *      '500': 
+ *          description: Error en el servidor
+ *      '400':
+ *          description: Parametros invalidos
+ * 
+ */
 router.get("/search/paginate/:search", async (req, res) => {
     try {
         const search = req.params.search;
@@ -128,12 +214,30 @@ router.get("/search/paginate/:search", async (req, res) => {
 
 /* Este enpoint busca productos basado en su categoria pero,
    tambien por nombre de producto */
+/**
+ * @swagger
+ * /api/products/search/{search}?orderP={orderP}:
+ *  parameters:
+ *     - name: search
+ *     - name: orderP
+ *  in: path
+ *  description: Retorna un productos por busqueda orden asc o desc
+ *  required: true
+ *  get:
+ *   description: Retorna un productos por busqueda orden asc o desc
+ *   responses:
+ *      '200':
+ *         description: Retorna un productos por busqueda orden asc o desc
+ *      '500': 
+ *          description: Error en el servidor
+ *      '400':
+ *          description: Parametros invalidos
+ * 
+ */
 router.get("/search/:search", async (req, res) => {
-    console.log("search");
     try {
         const search = req.params.search;// variable para la busqueda
         const { orderP } = req.query;// variable para el ordenamiento
-        console.log(orderP);
 
 
         /* Condition especial, en caso de mandar un arugmento con la cadena "all",

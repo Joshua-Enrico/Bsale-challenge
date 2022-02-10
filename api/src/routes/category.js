@@ -10,6 +10,16 @@ var models = initModels(db.sequelize);
 const Category = models.category;
 
 // Obtener todos las categorias
+/**
+ * @swagger
+ * /api/category/:
+ *  get:
+ *   description: Retorna todas las categorias
+ *   responses:
+ *      '200':
+ *         description: Retorna todas las categorias
+ * 
+ */
 router.get("/", async (req, res) => {
     try {
         const categories = await Category.findAll();
@@ -21,6 +31,16 @@ router.get("/", async (req, res) => {
 
 
 // Crear categorias (!solo usar en desarrollo)
+/**
+ * @swagger
+ * /api/category/fake:
+ *  post:
+ *   description: Este enpoint solo se usa en desarrollo para crear categorias
+ *   responses:
+ *      '200':
+ *         description: Retorna todas las categorias creadas
+ * 
+ */
 router.post("/fake", async (req, res) => {
     try {
         const category = await Category.bulkCreate(
