@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo chmod -R 777 /home/api/express-app
-cd /home/ec2-user/express-app
+sudo chmod -R 777 /home/api/
+cd /home/api/api/
 npm install
-node app.js > app.out.log 2> app.err.log < /dev/null & 
+node index.js > app.out.log 2> app.err.log < /dev/null & 

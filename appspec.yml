@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/api/express-app
+    destination: /home/api/
 hooks:
   ApplicationStop:
     - location: scripts/app_stop.sh
