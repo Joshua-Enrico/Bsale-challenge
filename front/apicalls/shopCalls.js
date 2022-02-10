@@ -16,6 +16,7 @@ function getParams(key = null) {
 
 /* funcion para obtener productos por busqueda, el resultado se renderiza */
 const getProductsBySearch = (selectArg, order) => {
+    console.log(selectArg, order)
     let arg = getParams('arg');
     let orderP = ""
 
@@ -30,7 +31,7 @@ const getProductsBySearch = (selectArg, order) => {
     let pages = '';
 
     if (arg) {
-        axios.get(ApiUrl + '/api/products/search/' + arg + `?orderP=${orderP}` + "/")
+        axios.get(ApiUrl + '/api/products/search/' + arg + `?orderP=${orderP}`)
             .then(response => {
                 const element = document.getElementById('product-container');
                 const products = response.data.rows;
