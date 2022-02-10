@@ -26,6 +26,17 @@ Backend:
 * Mocha
 * Supertest.js
 
+CI/CD:
+Se Implemento integracion continua a una instancia ec2 de aws para la api y para el front se esta usando vecel.
+vercel proporciona una integracion continua, en total se esta ejecutando CI/CD para el fron y backend cada uno en su propio entorno
+
+Backend:
+Servicios aws usados
+* EC2
+* IAM
+* Piplines
+* CodeDeploy
+
 ## Ejecucion
 
 En este caso Se esta manejando dos entornos diferentes para el front y backend:
