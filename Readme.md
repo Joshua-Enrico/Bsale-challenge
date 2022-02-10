@@ -40,8 +40,8 @@ Tests:
 * Supertest.js
 
 CI/CD:
-Se Implemento integracion continua a una instancia ec2 de aws para la api, y para el frontend se esta usando vercel.
-vercel proporciona una integracion continua. En total se esta ejecutando CI/CD para el frontend y backend,cada uno en su propio entorno
+Se Implemento integracion continua a una instancia ec2 de aws para la api, y para el frontend se esta usando S3 de aws.
+En total se esta ejecutando CI/CD para el frontend y backend,cada uno en su propio entorno
 
 CI/CD Backend:
 Servicios aws usados
@@ -51,7 +51,8 @@ Servicios aws usados
 * CodeDeploy
 
 CI/CD Frontend:
-* Vercel
+* GIT ACTIONS
+* IAM
 
 ## Inconvenientes
 ### Inconveniente a Mencionar
@@ -251,9 +252,9 @@ Connection has been established successfully.
 ---|---|---
 0|[apicalls](./front/fakeData)| Este Directorio Contiene toda la logica de los apicalls a nuestra api
 1|[galery](./front/node_modules)| Este Directorio contiene imagenes que usa nuestra app
-2|[js](./api/src)| En este Directorio tenemos funciones de utilidad 
-3|[pages](./api/src)| En este Directorio tenemos todas nuestas paginas html 
-4|[styles](./api/src)| Este Directorio contiene todo nuestros archivos css
+2|[js](./front/js)| En este Directorio tenemos funciones de utilidad 
+3|[src](./front/src)| En este Directorio tenemos todas nuestas paginas html 
+4|[styles](./front/styles)| Este Directorio contiene todo nuestros archivos css
 
 
 
