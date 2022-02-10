@@ -32,10 +32,10 @@ router.get("/", async (req, res) => {
 router.post("/fake", async (req, res) => {
 
     try {
-        const product = await Products.bulkCreate(
+        const products = await Products.bulkCreate(
             FakeData
         );
-        return res.status(200).json(product);
+        return res.status(200).json(products);
     } catch (err) {
         return res.status(500).send(err);
     }

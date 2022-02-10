@@ -27,6 +27,10 @@ sequelize
   });
 
 // sequelize.sync()  // crea e inicializa la tabla de productos en caso de necesitarlo (solo en desarrollo)
+if(process.env.CREATETABLES === 'CREATE'){
+  console.log('Creando Tablas...');
+  sequelize.sync()
+}
 
 /* usaremos este objeto para exportarlo y poder usarlo,
    en otros archivos de manera ordenada*/
