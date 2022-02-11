@@ -1,1 +1,0 @@
-# Bsale-challenge
