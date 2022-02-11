@@ -23,24 +23,24 @@ Las Caractericas de la aplicacion:
 
 ## Tecnologias-Librerias-usadas
 Frontend :
-* Vanilla.js
-* Html
-* Css
-* Jquery
-* Axios
+* [Vanilla.js](http://vanilla-js.com/)
+* [HTML](https://developer.mozilla.org/es/docs/Web/HTML)
+* [CSS](https://developer.mozilla.org/es/docs/Web/CSS)
+* [Jquery](https://jquery.com/)
+* [Axios](https://axios-http.com/docs/intro)
 
 Backend:
   Desplegado en aws(ec2)
-* Node.js
-* Express
-* Sequelize
-* Cors
-* Mysql2
-* Dotenv
+* [Node.js](https://nodejs.org/es/)
+* [Express](https://expressjs.com/es/)
+* [Sequelize](https://sequelize.org/v7/)
+* [Cors](https://developer.mozilla.org/es/docs/Web/HTTP/CORS)
+* [Mysql2](https://www.npmjs.com/package/mysql2)
+* [Dotenv](https://www.npmjs.com/package/dotenv)
 
 Tests:
-* Mocha.js
-* Supertest.js
+* [Mocha](https://mochajs.org/)
+* [SuperTest](https://www.npmjs.com/package/supertest)
 
 CI/CD:
 Se Implemento integracion continua a una instancia ec2 de aws para la api, y para el frontend se esta usando S3 de aws.
@@ -48,14 +48,21 @@ En total se esta ejecutando CI/CD para el frontend y backend,cada uno en su prop
 
 CI/CD Backend:
 Servicios aws usados
-* EC2
-* IAM
-* Piplines
-* CodeDeploy
+* [EC2](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/concepts.html)
+* [IAM](https://aws.amazon.com/es/iam/)
+* [Pipeline](https://aws.amazon.com/es/codepipeline/)
+* [CodeDeploy](https://aws.amazon.com/es/codedeploy/)
 
 CI/CD Frontend:
-* GIT ACTIONS
-* IAM
+* [Git Actions](https://docs.github.com/es/actions)
+* [IAM](https://aws.amazon.com/es/iam/)
+
+Documentacion de API con swagger:
+* [swagger-jsdoc](https://www.npmjs.com/package/swagger-jsdoc)
+* [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)
+
+[Link Swagger](http://54.211.177.150/api-docs/)
+
 
 ## Inconvenientes
 ### Inconveniente a Mencionar
