@@ -13,7 +13,7 @@ Las Caractericas de la aplicacion:
 ## Table of Contents
 * [Tecnologias-Librerias-usadas](#Tecnologias-Librerias-usadas)
 * [Inconveniente a Mencionar](#Inconvenientes)
-* [Ejecucion](#Ejecucion)
+* [Deploy](#Ejecucion)
 * [Tests](#Tests)
 * [Crear DB y Data](#DB-DATA)
 * [Estructura de Archivos](#Estructura)
@@ -78,7 +78,7 @@ En caso de querer probar la conexion a la db proporcionada solo basta con config
 mas adelante dejare algunos scripts y pasos para crear una db generica con data y usuario para poder tener una db en mysql funcional.
 
 
-## Ejecucion
+## Deploy
 
 En este caso Se esta manejando dos entornos diferentes para el front y backend:
 
@@ -97,23 +97,6 @@ Variables de Entorno: Debes crear un .env file en el directorio `api` que conten
 
 
 
-
-Frontend: En El front es simple y directo , No se esta manejando ningun framework para el frontend asi que no hay requisitos para ejecutar,
-Unicamente debes apuntar correctamente al index.html en el entorno que estes ejecutando
-
-```
-$ ./console.py
-(hbnb) help
-
-Documented commands (type help <topic>):
-========================================
-EOF  help  quit
-
-(hbnb) 
-(hbnb) 
-(hbnb) quit
-$
-```
 Backend: En el caso del backedn es diferente, estamos usando el entorno de node.js(v16.13.2), su manejador de 
 paquetes es estupendo asi que la instalacion de las dependencias no deberia ser un problema.
 
