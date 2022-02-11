@@ -5,12 +5,13 @@ Objetivo del proyecto: Crear una tienda online completa(front y backend) con la 
 
 
 Las Caractericas de la aplicacion: 
-* Frontend simple que despliega productos por busqueda dinamicamente
-* Backend(Api rest) que proporciona endpoinds necesarios para la aplicacion
+* Backend(Api rest) que proporciona endpoinds necesarios para la aplicacion Ecommerce
 
 [Link del Demo](http://front-ecommerce-test.s3-website-us-east-1.amazonaws.com/)
 
-## Table of Contents
+[URL de Api](http://54.211.177.150)
+
+## Tabla de Contenidos
 * [Tecnologias-Librerias-usadas](#Tecnologias-Librerias-usadas)
 * [Inconveniente a Mencionar](#Inconvenientes)
 * [Deploy](#Ejecucion)
@@ -22,12 +23,6 @@ Las Caractericas de la aplicacion:
 
 
 ## Tecnologias-Librerias-usadas
-Frontend :
-* [Vanilla.js](http://vanilla-js.com/)
-* [HTML](https://developer.mozilla.org/es/docs/Web/HTML)
-* [CSS](https://developer.mozilla.org/es/docs/Web/CSS)
-* [Jquery](https://jquery.com/)
-* [Axios](https://axios-http.com/docs/intro)
 
 Backend:
   Desplegado en aws(ec2)
@@ -53,10 +48,6 @@ Servicios aws usados
 * [Pipeline](https://aws.amazon.com/es/codepipeline/)
 * [CodeDeploy](https://aws.amazon.com/es/codedeploy/)
 
-CI/CD Frontend:
-* [Git Actions](https://docs.github.com/es/actions)
-* [IAM](https://aws.amazon.com/es/iam/)
-
 Documentacion de API con swagger:
 * [swagger-jsdoc](https://www.npmjs.com/package/swagger-jsdoc)
 * [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)
@@ -71,7 +62,7 @@ esta sucediendo es que el servidor tiene un maximo de conexiones por hora, lo qu
 estan ejecutando su aplicacion varias veces en un lapso de pocos minutos , eso hace que lleguemos al limite de conexiones en cuestion de minutos,
 estaba pensando en implementar alguna solucion ya que el inconveniente solo empeoraba y empeoraba mi flujo de desarrollo.
 La solucion fue clonar la db proporcionada, con ello mitigaba dos problemas, 1. no poder conectarme a la db en largos periodos de tiempo y
-2.Perjudicar a otros postulantes ya que aportaba a llegar al limite de las conexiones, pero luego en produccion lo que sucede es que no podia establecer una conexiones a la db proporcionada, obte por crear una db en el servidor de la api y asi mitigar ese problema ya que la aplicacion depende de la conexion.
+2.Perjudicar a otros postulantes ya que aportaba a llegar al limite de las conexiones, pero luego en produccion lo que sucede es que no podia establecer una conexiones a la db proporcionada porque aun seguia alcanzando el limite de conexiones, obte por crear una db en el servidor de la api y asi mitigar ese problema ya que la aplicacion depende de la conexion.
 
 esta db se estara ejecutando en la misma instancia ec2 de aws, con eso mitigamos el problema de las limitaciones de conexion por hora.
 En caso de querer probar la conexion a la db proporcionada solo basta con configurar el entorno de variable `HOST` con el valor del host de la db deseada,
@@ -80,7 +71,14 @@ mas adelante dejare algunos scripts y pasos para crear una db generica con data 
 
 ## Deploy
 
-En este caso Se esta manejando dos entornos diferentes para el front y backend:
+El deploy usando entorno node.js es bastante intuitivo, les estoy dejando algunos scripts , solo tiene que ejecutarlo en el directorio que se le indiciara a continuacion.
+Al ejecutar el script se instalara las dependencias necesarias para ejecutar la aplicacion:
+
+!importante: En caso de no tener node.js y npm tendra que instalarlo para que la aplicacion pueda funcionar correctamente , la distro de linux que uso es  ubuntu 20,
+El comando para instalar node.js es el siguiente `sudo apt install nodejs` basta que la versiones sea igual o mayor a 
+node.js(v16.13.2), lo usual es que node.js venga con su version de npm, en cas de tener problemas con la instalacion verificar una guia especifica para la version de su distro.
+Me hubiera gustado entregar un script que installe todo en una imagen de docker pero hubiear sido tambien un tema si no tenian docker instalado.
+
 
 Variables de Entorno: Debes crear un .env file en el directorio `api` que contenga lo siguiente
 `PORT`: para el puerto en que se ejecutara la api
@@ -93,11 +91,13 @@ Variables de Entorno: Debes crear un .env file en el directorio `api` que conten
 
 `database`: nombre de la db
 
+La razon por la que no integro las credenciales en el codigo es por tema de seguridad y buenas practicas, puede que complique el deployment, pero es un paso necesario.
+
 ![image](https://user-images.githubusercontent.com/77980741/153331311-0ecd2fe4-727a-4121-ac7a-a35f4d74f625.png)
 
 
 
-Backend: En el caso del backedn es diferente, estamos usando el entorno de node.js(v16.13.2), su manejador de 
+Backend: Estamos usando el entorno de node.js(v16.13.2), su manejador de 
 paquetes es estupendo asi que la instalacion de las dependencias no deberia ser un problema.
 
 Aqui tienes dos opciones:
@@ -146,6 +146,7 @@ Executing (default): SELECT 1+1 AS result
 Connection has been established successfully.
 
 ```
+
 
 ## Tests
 ### Ejecutar Tests
@@ -242,15 +243,6 @@ Connection has been established successfully.
 2|[utils](./api/src/utils)| Este directorio Contiene funciones de utilidad 
 
 
-### Structura directorio Front
-
-##|Directorio o Archivo | Descripcion
----|---|---
-0|[apicalls](./front/fakeData)| Este Directorio Contiene toda la logica de los apicalls a nuestra api
-1|[galery](./front/node_modules)| Este Directorio contiene imagenes que usa nuestra app
-2|[js](./front/js)| En este Directorio tenemos funciones de utilidad 
-3|[src](./front/src)| En este Directorio tenemos todas nuestas paginas html 
-4|[styles](./front/styles)| Este Directorio contiene todo nuestros archivos css
 
 
 
