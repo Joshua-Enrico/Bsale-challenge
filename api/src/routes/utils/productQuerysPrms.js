@@ -1,67 +1,61 @@
 /*  Esta Genera un query conditional dependiendo
     de los parametros envidados desde el cliente*/
-function QueryParamsPg(orderP, search, intPage, intSize, id, Op) {
-    if (orderP === "ASC" || orderP === "DESC") {
-        return ({
-            where: {
-                [Op.or]: [
-                    { name: { [Op.like]: `%${search}%` } },
-                    { category: id }
-                ]
-            },
-            limit: intSize,// limite de productos por pagina
-            offset: intPage * intSize, // numero de pagina
-            order: [
-                ["price", `${orderP}`]
-            ]
+function QueryBuilderPg(orderP, search, intPage, intSize, category) {
+    let categoryId = '';
 
-        })
-    } else {
-        return ({
-            where: {
-                [Op.or]: [
-                    { name: { [Op.like]: `%${search}%` } },
-                    { category: id }
-                ]
-            },
-            limit: intSize,// limite de productos por pagina
-            offset: intPage * intSize, // numero de pagina
-        })
+    if (category.length > 0) {
+        categoryId = category[0].dataValues.id;
     }
+    let Sort = "";
+    if (orderP && orderP === "ASC" || orderP === "DESC") {
+        Sort = orderP;
+    }
+
+    return (
+        "SELECT * FROM product WHERE category = " + `"${3}"` +
+        " or name LIKE '%" + search + "%' ORDER BY price " + Sort + " LIMIT 8 OFFSET " + intPage * intSize
+    )
 
 }
 
 
 /*  Esta Genera un query conditional dependiendo
     de los parametros envidados desde el cliente*/
-function QueryParams2(orderP, search, id, Op) {
-     if (orderP === "ASC" || orderP === "DESC") {
-        
-        return ({
-            where: {
-                [Op.or]: [
-                    { name: { [Op.substring]: `%${search}%` } },
-                    { category: id }
-                ]
-            },
-            limit: 8, // el numero de productos por pagina sera de 8 por defecto
-            order: [
-                ["price", `${orderP}`]
-            ]
-        })
-    } else {
-        return ({
-            where: {
-                [Op.or]: [
-                    { name: { [Op.substring]: `%${search}%` } },
-                    { category: id }
-                ]
-            },
-            limit: 8, // el numero de productos por pagina sera de 8 por defecto
-        })
+function QueryBuilderSearch(search, orderP, category) {
+    let categoryId = '';
+    let Sort = "";
+
+    if (category.length > 0) {
+        categoryId = category[0].dataValues.id;
     }
 
+    if (orderP && orderP === "ASC" || orderP === "DESC") {
+        Sort = orderP;
+    }
+
+
+    return (
+        "SELECT * FROM product WHERE category = " + `"${categoryId}"` +
+        " or name LIKE '%" + search + "%' ORDER BY price " + Sort + " LIMIT 8"
+    )
+
+
 }
+
+/*  Query para contar registros encontrados */
+function QueryCount(search, category) {
+    let categoryId = " ";
+    if (category.length > 0) {
+        categoryId = category[0].dataValues.id;
+    }
+
+    return (
+        "SELECT COUNT(*) FROM product WHERE category = " + `"${categoryId}"`
+        + " or name LIKE '%" + search + "%'"
+    )
+}
+
+
 
 
 /*  Esta Genera un query conditional dependiendo
@@ -102,4 +96,4 @@ function QueryAllPaginate(orderP, intSize, intPage) {
     }
 }
 
-module.exports = { QueryParamsPg, QueryParams2, QueryAll, QueryAllPaginate };
+module.exports = { QueryBuilderPg, QueryBuilderSearch, QueryAll, QueryAllPaginate, QueryCount };

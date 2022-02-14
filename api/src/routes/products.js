@@ -9,7 +9,8 @@ const { FakeData } = require('../../fakeData/fakeData');// Data fake en caso de 
 const { VldParams } = require('./utils/validations');// funcion para validar argumentos
 
 // obtenemos nuestros querys conditionales desde este modulo
-const { QueryParamsPg, QueryParams2, QueryAll, QueryAllPaginate } = require('./utils/productQuerysPrms');
+const { QueryBuilderPg, QueryAll, QueryAllPaginate,
+     QueryBuilderSearch, QueryCount } = require('./utils/productQuerysPrms');
 
 /* instanciamos el modelo Products  */
 var models = initModels(db.sequelize);
@@ -188,22 +189,22 @@ router.get("/search/paginate/:search", async (req, res) => {
 
         /* Hacemos un query a la tabla categoria, 
         para mejorar nuestra busqueda en la tabla productos  */
-        const category = await Category.findAll({
-            where: {
-                [Op.or]: [
-                    { name: { [Op.substring]: `%${search}%` } },
-                ]
-            }
-        });
+        const category = await db.sequelize.query(
+            `SELECT * FROM category WHERE name LIKE '%${search}'`,
+            { model: Category, mapToModel: true }
+        );
 
-        const id = category[0].id;// obtenemos el id de la categoria
+        /*  Haremos los querys de busqueda, para cada query estamos usando una funcion,
+         que armara el query segun los parametros que estemos enviando  */
+        const results = await db.sequelize.query(
+            QueryBuilderPg(orderP, search, intPage, intSize, category), 
+            { model: Products, mapToModel: true });
 
-        const query = QueryParamsPg(orderP, search, intPage, intSize, id, Op);// obtenemos un query conditional
+        const count = await db.sequelize.query(
+            QueryCount(search, category),
+            { model: Products, mapToModel: true });
 
-        /* Query principal, usando el id resultante y el parametro search
-           Haremos el query a la tabla productos.
-        */
-        const products = await Products.findAndCountAll(query);
+        const products = { count: count[0].dataValues["COUNT(*)"], rows: results };
 
         return res.status(200).json(products); // retornamos los productos por pagina
     } catch (err) {
@@ -251,22 +252,25 @@ router.get("/search/:search", async (req, res) => {
 
         /* Hacemos un query a la tabla categoria, 
         para mejorar nuestra busqueda en la tabla productos  */
-        const category = await Category.findAll({
-            where: {
-                [Op.or]: [
-                    { name: { [Op.substring]: `%${search}%` } },
-                ]
-            }
-        });
+        const category = await db.sequelize.query(
+            `SELECT * FROM category WHERE name LIKE '%${search}'`,
+            { model: Category, mapToModel: true }
+        );
 
-        const id = category[0].id; // obtenemos el id de la categoria
-
-        const query = QueryParams2(orderP, search, id, Op); // obtenemos un query conditional
 
         /* Query principal, usando el id resultante y el parametro search
            Haremos el query a la tabla productos.
         */
-        const products = await Products.findAndCountAll(query);
+        const results = await db.sequelize.query(
+            QueryBuilderSearch(search, orderP, category),
+            { model: Products, mapToModel: true });
+
+        const count = await db.sequelize.query(
+            QueryCount(search, category),
+            { model: Products, mapToModel: true });
+
+        const products = { count: count[0].dataValues["COUNT(*)"], rows: results };
+
         return res.status(200).json(products); // retornamos los productos
 
 
