@@ -259,7 +259,7 @@ router.get("/search/:search", async (req, res) => {
 
 
         /* Query principal, usando el id resultante y el parametro search
-           Haremos el query a la tabla productos.
+           Haremos el query a la tabla productos .
         */
         const results = await db.sequelize.query(
             QueryBuilderSearch(search, orderP, category),
