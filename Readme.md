@@ -127,22 +127,21 @@ ejecuta `npm install` y por ultimo `npm run dev`
 Server is running on port 3000
 Executing (default): SELECT 1+1 AS result
 ```
-* Para produccion : Para produccion instalar las dependencias `npm install` seguido de `npm run start`
+* Para produccion : Para produccion ejecutar el script en el root del repositorio `./deployment.sh`
 ```
-(base) root@DESKTOP-VQ684KQ:/home/bsale-challenge/api# pwd
-/home/bsale-challenge/api
-(base) root@DESKTOP-VQ684KQ:/home/bsale-challenge/api# 
-(base) root@DESKTOP-VQ684KQ:/home/bsale-challenge/api# npm install
-...
-...
-...
-(base) root@DESKTOP-VQ684KQ:/home/bsale-challenge/api# npm run start
+(base) root@DESKTOP-VQ684KQ:/home/bsale-challenge# ./deployment.sh 
+
+up to date, audited 296 packages in 1s
+
+41 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
 
 > api@1.0.0 start
 > node ./src/index.js
 
 Server is running on port 3000
-Executing (default): SELECT 1+1 AS result
 Connection has been established successfully.
 
 ```
