@@ -6,8 +6,11 @@ function initModels(sequelize) {
   var category = _category(sequelize, DataTypes);
   var product = _product(sequelize, DataTypes);
 
-  product.belongsTo(category, { as: "category_category", foreignKey: "category"});
-  category.hasMany(product, { as: "products", foreignKey: "category"});
+  product.belongsTo(category, {
+    as: "category_category",
+    foreignKey: "category",
+  });
+  category.hasMany(product, { as: "products", foreignKey: "category" });
 
   return {
     category,
