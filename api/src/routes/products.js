@@ -2,20 +2,16 @@
 
 const router = require('express').Router();// manejador de rutas
 const db = require('../utils/database'); // manejador de base de datos
-const initModels = require('../models/init-models'); // manejador de modelos
-const Op = db.Sequelize.Op;// manejador de operaciones
 
 const { FakeData } = require('../../fakeData/fakeData');// Data fake en caso de necesitarla en entorno dev
 const { VldParams } = require('./utils/validations');// funcion para validar argumentos
 
 // obtenemos nuestros querys conditionales desde este modulo
-const { QueryBuilderPg, QueryAll, QueryAllPaginate,
-     QueryBuilderSearch, QueryCount } = require('./utils/productQuerysPrms');
+const {QueryAll, QueryBuilderSearch, QueryCount } = require('./utils/querys/productQuerysPrms');
 
 /* instanciamos el modelo Products  */
-var models = initModels(db.sequelize);
-const Products = models.product;
-const Category = models.category;
+const { Products, Category } = require('../models/StartModels');
+const { FindCountPg, FindCount } = require('./utils/querys/productsQueries');
 
 
 // Obtener todos los productos
@@ -34,12 +30,13 @@ const Category = models.category;
  * 
  */
 router.get("/", async (req, res) => {
-    try {
-        const products = await Products.findAll();
-        res.status(200).json(products);
-    } catch (err) {
-        res.status(500).send(err);
-    }
+
+    await Products.findAll()
+        .then(products => {
+            return res.status(200).json(products);
+        }).catch(err => {
+            return res.status(500).send(err);
+        })
 })
 
 
@@ -58,14 +55,16 @@ router.get("/", async (req, res) => {
  */
 router.post("/fake", async (req, res) => {
 
-    try {
-        const products = await Products.bulkCreate(
-            FakeData
-        );
-        return res.status(200).json(products);
-    } catch (err) {
-        return res.status(500).send(err);
-    }
+    await Products.bulkCreate(FakeData)
+        .then(products => {
+            return res.status(200).json(products);
+        })
+        .catch(err => {
+            return res.status(500).send(
+                { message: "Verificar si tienes la data ya creada", err }
+            );
+        })
+
 });
 
 
@@ -93,13 +92,17 @@ router.get("/:productId", async (req, res) => {
     const id = req.params.productId;
     if (!id) {
         res.status(400).send("El id es requerido");
+    } else {
+
+        await Products.findByPk(id)
+            .then(product => {
+                return res.status(200).json(product);
+            }).catch(err => {
+                return res.status(500).send(err);
+            })
+
     }
-    try {
-        const prodcut = await Products.findByPk(id);
-        return res.status(200).json(prodcut);
-    } catch (err) {
-        return res.status(500).send(err);
-    }
+
 })
 
 
@@ -127,15 +130,18 @@ router.get("/qty/:number", async (req, res) => {
     const number = parseInt(req.params.number);
     if (isNaN(number) || number < 1) {
         res.status(400).send("El numero es requerido o no es valido");
-    }
-    try {
-        const product = await Products.findAll({
+    } else {
+        await Products.findAll({
             limit: number
-        });
-        return res.status(200).json(product);
-    } catch (err) {
-        return res.status(500).send(err);
+        })
+            .then(product => {
+                return res.status(200).json(product);
+            }).catch(err => {
+                return res.status(500).send(err);
+            })
+
     }
+
 })
 
 
@@ -164,7 +170,6 @@ router.get("/qty/:number", async (req, res) => {
  * 
  */
 router.get("/search/paginate/:search", async (req, res) => {
-    try {
         const search = req.params.search;
         const { size, page, orderP } = req.query;
         // convertimos el size y page a int
@@ -175,41 +180,26 @@ router.get("/search/paginate/:search", async (req, res) => {
         // validamos que el usuario envie argumentos validos
         const vldParams = VldParams(intSize, intPage, orderP);
         if (!vldParams.isValid) {
+
             return res.status(400).send(vldParams.message);
+
+        } else {
+
+        /*  Esta funcion maneja los querys a la db 
+            Dentro de la funcion tenemos throw erros en caso de error 
+            Automaticamente atrapa el error y mandamos status 500.
+            Caso contrario retornamos la data solicitada*/
+        await FindCountPg(orderP, search, intPage, intSize)
+            .then(async (result) => {
+                
+                return res.status(200).json(result);
+            }).catch(err => {
+
+                return res.status(500).json(err);
+            })
+
         }
 
-        /*  Condicional especial, en caso de mandar un arugmento con la cadena "all",
-            retornaremos todos los productos con conteo,
-            el objetivo es mantener el endpoint versatil */
-        if (search === "all") {
-            const queryAll = QueryAllPaginate(orderP, intSize, intPage);// obtenemos un query conditional
-            const products = await Products.findAndCountAll(queryAll);
-            return res.status(200).json(products);
-        }
-
-        /* Hacemos un query a la tabla categoria, 
-        para mejorar nuestra busqueda en la tabla productos  */
-        const category = await db.sequelize.query(
-            `SELECT * FROM category WHERE name LIKE '%${search}'`,
-            { model: Category, mapToModel: true }
-        );
-
-        /*  Haremos los querys de busqueda, para cada query estamos usando una funcion,
-         que armara el query segun los parametros que estemos enviando  */
-        const results = await db.sequelize.query(
-            QueryBuilderPg(orderP, search, intPage, intSize, category), 
-            { model: Products, mapToModel: true });
-
-        const count = await db.sequelize.query(
-            QueryCount(search, category),
-            { model: Products, mapToModel: true });
-
-        const products = { count: count[0].dataValues["COUNT(*)"], rows: results };
-
-        return res.status(200).json(products); // retornamos los productos por pagina
-    } catch (err) {
-        return res.status(500).send(err);
-    }
 })
 
 
@@ -236,48 +226,21 @@ router.get("/search/paginate/:search", async (req, res) => {
  * 
  */
 router.get("/search/:search", async (req, res) => {
-    try {
+
         const search = req.params.search;// variable para la busqueda
         const { orderP } = req.query;// variable para el ordenamiento
 
+        /*  Esta funcion manejara todas nuestras consultas
+            y errores que provengan de la misma */
+        await FindCount(search, orderP)
+        .then(async (result) => {
 
-        /* Condition especial, en caso de mandar un arugmento con la cadena "all",
-                retornaremos todos los productos con conteo, el objetivo es mantener este 
-                endpoint como principal para las busquedas */
-        if (search === "all") {
-            const queryAll = QueryAll(orderP);// obtenemos un query conditional
-            const allproducts = await Products.findAndCountAll(queryAll);
-            return res.status(200).json(allproducts);
-        }
+            return res.status(200).json(result);
 
-        /* Hacemos un query a la tabla categoria, 
-        para mejorar nuestra busqueda en la tabla productos  */
-        const category = await db.sequelize.query(
-            `SELECT * FROM category WHERE name LIKE '%${search}'`,
-            { model: Category, mapToModel: true }
-        );
+        }).catch(err => {
+            return res.status(500).json(err);
+        })
 
-
-        /* Query principal, usando el id resultante y el parametro search
-           Haremos el query a la tabla productos .
-        */
-        const results = await db.sequelize.query(
-            QueryBuilderSearch(search, orderP, category),
-            { model: Products, mapToModel: true });
-
-        const count = await db.sequelize.query(
-            QueryCount(search, category),
-            { model: Products, mapToModel: true });
-
-        const products = { count: count[0].dataValues["COUNT(*)"], rows: results };
-
-        return res.status(200).json(products); // retornamos los productos
-
-
-
-    } catch (err) {
-        return res.status(500).send(err); //en caso de error retornamos el error
-    }
 })
 
 module.exports = router;

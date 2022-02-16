@@ -21,12 +21,14 @@ const Category = models.category;
  * 
  */
 router.get("/", async (req, res) => {
-    try {
-        const categories = await Category.findAll();
+
+    await Category.findAll()
+    .then(categories => {
         res.status(200).json(categories);
-    } catch (err) {
+    }).catch(err => {
         res.status(500).send(err);
-    }
+    });
+
 })
 
 
@@ -42,14 +44,14 @@ router.get("/", async (req, res) => {
  * 
  */
 router.post("/fake", async (req, res) => {
-    try {
-        const category = await Category.bulkCreate(
-            FakeDataCtry
-        );
-        return res.status(200).json(category);
-    } catch(err) {
+
+    await Category.bulkCreate(
+        FakeDataCtry
+    ).then(category => {
+        res.status(200).json(category);
+    }).catch(err => {
         return res.status(500).send(err);
-    }
+    })
 })
 
 module.exports = router;

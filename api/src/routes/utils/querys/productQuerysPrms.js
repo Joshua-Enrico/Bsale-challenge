@@ -12,7 +12,7 @@ function QueryBuilderPg(orderP, search, intPage, intSize, category) {
     }
 
     return (
-        "SELECT * FROM product WHERE category = " + `"${3}"` +
+        "SELECT * FROM product WHERE category = " + `"${categoryId}"` +
         " or name LIKE '%" + search + "%' ORDER BY price " + Sort + " LIMIT 8 OFFSET " + intPage * intSize
     )
 
@@ -42,6 +42,8 @@ function QueryBuilderSearch(search, orderP, category) {
 
 }
 
+
+
 /*  Query para contar registros encontrados */
 function QueryCount(search, category) {
     let categoryId = " ";
@@ -54,8 +56,6 @@ function QueryCount(search, category) {
         + " or name LIKE '%" + search + "%'"
     )
 }
-
-
 
 
 /*  Esta Genera un query conditional dependiendo
